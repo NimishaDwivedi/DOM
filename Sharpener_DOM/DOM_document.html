@@ -1,0 +1,80 @@
+<html>
+
+<body>
+
+    <p id="demo"></p>
+    <div id="myElement" class="myClass" data-custom="12345">Hello, World!</div>
+    <div id="myContainer"></div>
+
+    <div id="myContainer_1">
+        <p id="myParagraph">This is a paragraph_2</p>
+    </div>
+
+    <button id="myButton">Click Me</button>
+
+    <script>
+        a = document.getElementById("demo").textContent = "Hello World!";
+        console.log(a)
+        document.getElementById('demo').innerHTML = "<b>Hello Nimi, I Love You <3</b>"
+
+
+        const element = document.getElementById('myElement');
+        console.log(element);
+        const classValue = element.getAttribute('class');
+        const dataValue = element.getAttribute('data-custom');
+        console.log(classValue);
+        console.log(dataValue);
+
+
+        const element_1 = document.getElementById('myElement');
+        element_1.style.color = 'red'; // Set the text color to red
+        element_1.style.fontSize = '20px'; // Set the font size to 20 pixels
+        element_1.style.backgroundColor = '#f2f2f2'; // Set the background color to light gray
+    
+        const element_2 = document.getElementById('myElement');
+        element_2.setAttribute('data', 'Avii'); // Set the value of the 'data-custom' attribute
+        console.log(element_2)
+
+        const container = document.getElementById('myContainer');
+        const newElement = document.createElement('p');
+        newElement.textContent = 'This is a new paragraph';
+        container.appendChild(newElement);
+        console.log(document.getElementById('myContainer'));
+
+        // const container_1 = document.getElementById('myContainer_1');
+        // const paragraph = document.getElementById('myParagraph');
+        // container_1.removeChild(paragraph);
+        
+        // const newElement_1 = document.createElement('h1');
+        // newElement_1.textContent = "I love you Nimi";
+        // container_1.appendChild(newElement_1);
+
+        // const new_h1 = document.createElement('h1');
+        // new_h1.textContent = "I love you Nimi So SO SO much !!!";
+        // newElement_1.setAttribute('id','old');
+        // old_h1 = document.getElementById('old')
+        // container_1.replaceChild(new_h1,newElement_1);
+
+        // document.getElementById('myButton').onclick = function() {
+        //     alert('Button clicked!');
+        // };
+
+        // console.log(document);
+
+        // //document.scripts	Returns all <script> elements
+        // console.log(document.scripts);
+        // console.log(document.scripts[0]);
+
+        // document.title	Returns the <title> element
+        // document.URL	Returns the complete URL of the document
+        // document.links	Returns all <area> and <a> elements that have a href attribute
+        // document.forms  Returns all <form> elements
+        // document.anchors	Returns all <a> elements that have a name attribute
+            
+       
+
+    
+    </script>
+</body>
+
+</html>

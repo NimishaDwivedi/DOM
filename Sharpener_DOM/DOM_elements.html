@@ -1,0 +1,92 @@
+<html>
+
+<body>
+    <h1> DOM elements</h1>
+    <div id="demo"></div>
+    <div id="date"></div>
+    <div id="myContainer"></div>
+    <h1 id = "change" class = "h1" name="demo Change">Change</h1>
+
+    <p class="intro">Paragraph 1</p>
+    <p class="intro">Paragraph 2</p>
+    <p class="other">Paragraph 3</p>
+
+
+    <form id="frm1">
+        First name: <input type="text" name="fname" value="Donald"><br>
+        Last name: <input type="text" name="lname" value="Duck"><br><br>
+        <input type="submit" value="Submit">
+      </form> 
+      
+      <p>These are the values of each element in the form:</p>
+      
+      <p id="demo_1"></p>
+      <p id="demo_2"></p>
+      <p id="demo_3"></p>
+      <p id="demo_4"></p>
+      <p id="demo_5"></p>
+      
+      
+    <script>
+
+        let container_1 = document.getElementById('demo');
+        new_h1 = document.createElement('h1');
+        new_h1.textContent = "I love you My Dear Wifey";
+        container_1.append(new_h1);
+        
+
+        let container_2 = document.getElementById('myContainer');
+        newElement = document.createElement('h3');
+        newElement.textContent = 'This is a new paragraph';
+        container_2.appendChild(newElement);
+        
+        container_2.className = 'mycontainer';
+        x = document.getElementsByClassName("mycontainer");
+        y = document.getElementById("myContainer");
+        console.log(x);
+        console.log(y);
+        console.log(x[0]);
+        console.log(x[1]);//undefined
+        console.log(x[2]);//undefined
+
+
+        x = document.querySelectorAll("p.intro"); // here 'p' is a tag name and 'intro' is a class name.
+        console.log(x);
+
+
+        x = document.forms["frm1"]; //doument.forms returns all forms of the page and with id we can select the form
+        // console.log(x);
+        // console.log(x[0]);
+        // x = x["frm1"];
+        console.log(x);
+        
+        let text = "";
+        for (let i = 0; i < x.length ;i++) {
+            console.log(x.elements[i]); // returns the tag one by one
+            text += x.elements[i].value + "<br>";
+            console.log(text);
+        }
+        document.getElementById("demo_1").innerHTML = text;
+
+        //Changing the Value of an Attribute
+        change = document.getElementById('change');
+        console.log(change);
+        change.className = "landscape";
+        console.log(change);
+
+        // we can choose the element from HTML collection using attribue id if defined in the tag else use indexing
+        p_tag = document.getElementsByTagName('p');
+        console.log(p_tag);
+        console.log(p_tag['demo_1']);
+        console.log(p_tag['demo_2']);
+
+
+        /// we can use container.className, container.id for any type of tags and for img tag one addition container.src
+
+        // Dynamic html content
+        document.getElementById("date").innerHTML = "Date : " + Date();
+    </script>
+
+</body>
+
+</html>
