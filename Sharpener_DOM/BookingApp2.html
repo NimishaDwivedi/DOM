@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="appform">
+        <label for="name"> Name : </label>
+        <input type="text" placeholder="Enter your name" id="name">
+        <br>
+        <br>
+        <label for="email"> E-mail : </label>
+        <input type="text" placeholder="Enter your E-mail id" id="email">
+        <br>
+        <br>
+        <label for="MobNo"> Mob. No. : </label>
+        <input type="text" placeholder="Enter your Mobile No." id="MobNo">
+        <br>
+        <br>
+        <label for="members"> Number of Members : </label>
+        <select id="members" name="familyMembers">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <br>
+        <br>
+        <button type = "submit"> Submit </button>
+    </form>
+
+    <script>
+        const form = document.getElementById("appform");
+        form.addEventListener("submit", saveDetails);
+
+        function saveDetails(e){
+            e.preventDefault();
+            var nameOfPerson = document.getElementById("name").value;
+            var emailOfPerson = document.getElementById("email").value;
+            var numberOfPerson = document.getElementById("MobNo").value;
+            var memberCount = document.getElementById("members").value;
+
+            obj1 = {
+                "Name": nameOfPerson,
+                "E-mail": emailOfPerson,
+                "Mobile Number": numberOfPerson,
+                "Number of Members": memberCount
+            }
+            var documentString = JSON.stringify(obj1);
+            console.log(localStorage.setItem("newObj",documentString));
+
+            var ans = JSON.parse(localStorage.getItem("newObj"));
+            console.log(ans);
+            
+            let name = ans["Name"];
+            console.log(name);
+        }
+    </script>
+</body>
+
+</html>
