@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+  <form id="appform">
+    <div class="input-group">
+      <label for="expense" class="input-group-text"> Expense : </label>
+      <input class="form-control col-md-9" type="text" placeholder="Total Expense" id="expense">
+    </div>
+
+    <div class="input-group">
+      <label for="name" class="input-group-text"> Product Name : </label>
+      <input type="text" class="form-control col-md-9" placeholder="Enter your product name" id="name">
+    </div>
+
+    <div class="input-group">
+      <label for="category" class="input-group-text"> Category : </label>
+      <select id="category" class="form-control col-md-9">
+        <option value="Music" class="dropdown-item">Music</option>
+        <option value="Food" class="dropdown-item">Food</option>
+        <option value="Drinks" class="dropdown-item">Drinks</option>
+      </select>
+    </div>
+
+    <br>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="text-center"> Submit </button>
+    </div>
+    <br>
+    <br>
+    <ul class="list-group" id="parent"></ul>
+
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+  <script>
+    const form = document.getElementById("appform");
+    form.addEventListener("submit", saveDetails);
+    console.log(form);
+
+    const parentElement = document.getElementById("parent");
+
+    function saveDetails(e) {
+      console.log("SaveDetailsCalled");
+      e.preventDefault();
+      var totalExpense = document.getElementById("expense").value;
+      var productName = document.getElementById("name").value;
+      var categoryOfProduct = document.getElementById("category").value;
+      console.log(categoryOfProduct, productName, totalExpense);
+
+      obj1 = {
+        "Expense": totalExpense,
+        "Product Name": productName,
+        "Category": categoryOfProduct
+      }
+      var content = obj1["Expense"] + " - " + obj1["Product Name"] + " - " + obj1["Category"] + " - ";
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Delete";
+      delBtn.className = "toDelete";
+      delBtn.addEventListener("click", remove);
+
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+      editBtn.className = "toEdit";
+      editBtn.addEventListener("click", edit);
+
+      const productInfo = document.createElement("li");
+      productInfo.textContent = content;
+      productInfo.setAttribute("product", productName);
+      productInfo.className = "list-group-item list-group-item-secondary";
+      productInfo.appendChild(delBtn);
+      productInfo.appendChild(editBtn);
+
+      parentElement.appendChild(productInfo);
+
+      var inString = JSON.stringify(obj1);
+      console.log(localStorage.setItem(productName, inString));
+
+      document.getElementById("expense").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("category").value = "";
+
+    }
+    function remove(e) {
+      e.preventDefault();
+      if (e.target.classList.contains("toDelete")) {
+        //  console.log(e.target);
+        if (confirm('Are You Sure?')) {
+          var parent_li = e.target.parentElement;
+          parentElement.removeChild(parent_li);
+          product_key = parent_li.getAttribute("product");
+          localStorage.removeItem(product_key);
+        }
+
+      }
+    }
+
+    function edit(e) {
+      e.preventDefault();
+      var parent_li = e.target.parentElement;
+      //  console.log(parent_li);
+      product_key = parent_li.getAttribute('product');
+      console.log(product_key);
+      const toGet = localStorage.getItem(product_key);
+      const gotItems = JSON.parse(toGet);
+      console.log(gotItems);
+      document.getElementById("expense").value = gotItems.Expense;
+      document.getElementById("name").value = gotItems["Product Name"];
+      document.getElementById("category").value = gotItems["Category"];
+      console.log(gotItems.Expense, gotItems["Product Name"], gotItems["Category"]);
+      localStorage.removeItem(product_key);
+      var parent_li = e.target.parentElement;
+      parentElement.removeChild(parent_li);
+    }
+
+  </script>
+</body>
+
+</html>
