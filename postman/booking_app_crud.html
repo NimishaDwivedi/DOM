@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Booking App</h2>
+    <form id="appform">
+        <label for="name"> Name : </label>
+        <input type="text" placeholder="Enter your name" id="name">
+        <br>
+        <br>
+        <label for="email"> E-mail : </label>
+        <input type="text" placeholder="Enter your E-mail id" id="email">
+        <br>
+        <br>
+        <label for="MobNo"> Mob. No. : </label>
+        <input type="text" placeholder="Enter your Mobile No." id="MobNo">
+        <br>
+        <br>
+        <button type="submit"> Submit </button>
+        <br>
+        <br>
+        <ul id="parent"></ul>
+        </ul>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+    <script>
+        
+        const form = document.getElementById("appform");
+        form.addEventListener("submit", saveDetails);
+
+        const parentElement = document.getElementById("parent");
+
+        var item = document.getElementById("parent");
+        // item.addEventListener("click", remove);
+
+
+        function saveDetails(e) {
+            e.preventDefault();
+            var nameOfPerson = document.getElementById("name").value;
+            var emailOfPerson = document.getElementById("email").value;
+            var numberOfPerson = document.getElementById("MobNo").value;
+
+            obj1 = {
+                Name: nameOfPerson,
+                E_mail: emailOfPerson,
+                Mob_No: numberOfPerson
+            }
+            var content = obj1["Name"] + " - " + obj1["E_mail"] + " - " + obj1["Mob_No"];
+
+            const delBtn = document.createElement("button");
+            delBtn.textContent = "Delete";
+            delBtn.className = "toDelete";
+            delBtn.addEventListener("click",remove);
+            
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "Edit";
+            editBtn.className = "toEdit";
+            editBtn.addEventListener("click",edit);
+
+            const name = document.createElement("li");
+            name.textContent = content;
+            name.setAttribute("Email", emailOfPerson);
+            name.appendChild(delBtn);
+            name.appendChild(editBtn);
+            
+            parentElement.appendChild(name);
+
+            var inString = JSON.stringify(obj1);
+            console.log(localStorage.setItem(emailOfPerson, inString));
+            var ans = JSON.parse(localStorage.getItem(emailOfPerson));
+
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("MobNo").value = "";
+             
+            // console.log(ans);
+            // console.log(ans["Name"]);
+
+            axios.post('https://crudcrud.com/api/f39bb5b81dab44d1ac5e99b0feb67ab3/userDetails', obj1)
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {console.log(err);});
+
+
+                
+        }
+
+        function remove(e) {
+            e.preventDefault()
+            if (e.target.classList.contains("toDelete")) {
+                if (confirm('Are You Sure?')) {
+                    var parent_li = e.target.parentElement;
+                    parentElement.removeChild(parent_li);
+                    email_key = parent_li.getAttribute('Email');
+                    localStorage.removeItem(email_key);
+                }
+
+            }
+        }
+
+        function edit(e){
+            e.preventDefault()
+            console.log("edit");
+            var parent_li = e.target.parentElement;
+            key = parent_li.getAttribute("Email");
+
+            let item = localStorage.getItem(key);
+            let ans = JSON.parse(item);
+
+            document.getElementById("name").value = ans["Name"];
+            document.getElementById("email").value = ans["E_mail"];
+            document.getElementById("MobNo").value = ans["Mob_No"];
+            localStorage.removeItem(key);
+            parentElement.removeChild(parent_li);
+        }
+
+    </script>
+</body>
+
+</html>
