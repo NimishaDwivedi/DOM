@@ -27,7 +27,7 @@
         <br>
         <br>
         <ul id="parent"></ul>
-        </ul>
+        
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
@@ -55,13 +55,13 @@
                 Mob_No: numberOfPerson
             }
 
-            axios.post('https://crudcrud.com/api/a284fe8f26894fe9a6e8ad01367a33ed/userDetails', obj1)
+            axios.post('https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails', obj1)
                 .then((res) => {
                     console.log(res);
                 })
                 .catch((err) => { console.log(err); });
 
-            
+            showDetails()
         }
 
 
@@ -69,7 +69,7 @@
 
             parentElement.innerHTML = "";
 
-            axios.get('https://crudcrud.com/api/a284fe8f26894fe9a6e8ad01367a33ed/userDetails')
+            axios.get('https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails')
                 .then((res) => {
                     console.log(res);
                     obj1 = res.data;
@@ -119,7 +119,7 @@
                     var parent_li = e.target.parentElement;
                     parentElement.removeChild(parent_li);
                     key = parent_li.getAttribute('ID_');
-                    axios.delete(`https://crudcrud.com/api/a284fe8f26894fe9a6e8ad01367a33ed/userDetails/${key}`)
+                    axios.delete(`https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails/${key}`)
                         .then((res) => {
                             console.log("deleted")
                         });
@@ -135,7 +135,7 @@
 
             key = parent_li.getAttribute('ID_');
 
-            axios.get(`https://crudcrud.com/api/a284fe8f26894fe9a6e8ad01367a33ed/userDetails/${key}`)
+            axios.get(`https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails/${key}`)
                 .then((res) => {
                     let ans = res.data;
 
@@ -144,15 +144,14 @@
                     document.getElementById("MobNo").value = ans["Mob_No"];
                 })
 
-            axios.put(`https://crudcrud.com/api/a284fe8f26894fe9a6e8ad01367a33ed/userDetails/${key}`, {
+            axios.put(`https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails/${key}`, {
                 Name: document.getElementById("name").value,
                 E_mail: document.getElementById("email").value,
                 Mob_No: document.getElementById("MobNo").value
             })
                 .then((res) => {
                     console.log(res);
-                    console.log("put");
-
+                    
                 })
 
             parentElement.removeChild(parent_li);
