@@ -56,7 +56,7 @@
                 Mob_No: numberOfPerson
             }
 
-            axios.post('https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails', obj1)
+            axios.post('https://crudcrud.com/api/b81ecf4cc7d541fd916fd0543faac91a/userDetails', obj1)
                 .then((res) => {
                     console.log(res);
                 })
@@ -70,7 +70,7 @@
 
             parentElement.innerHTML = "";
 
-            axios.get('https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails')
+            axios.get('https://crudcrud.com/api/b81ecf4cc7d541fd916fd0543faac91a/userDetails')
                 .then((res) => {
                     console.log(res);
                     obj1 = res.data;
@@ -120,7 +120,7 @@
                     var parent_li = e.target.parentElement;
                     parentElement.removeChild(parent_li);
                     key = parent_li.getAttribute('ID_');
-                    axios.delete(`https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails/${key}`)
+                    axios.delete(`https://crudcrud.com/api/b81ecf4cc7d541fd916fd0543faac91a/userDetails/${key}`)
                         .then((res) => {
                             console.log("deleted")
                         });
@@ -137,7 +137,7 @@
 
             key = parent_li.getAttribute('ID_');
 
-            axios.get(`https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails/${key}`)
+            axios.get(`https://crudcrud.com/api/b81ecf4cc7d541fd916fd0543faac91a/userDetails/${key}`)
                 .then((res) => {
                     let ans = res.data;
 
@@ -146,7 +146,7 @@
                     document.getElementById("MobNo").value = ans["Mob_No"];
                 })
 
-            axios.put(`https://crudcrud.com/api/971c66fa7769424e8abfc4a20661ef37/userDetails/${key}`, {
+            axios.put(`https://crudcrud.com/api/b81ecf4cc7d541fd916fd0543faac91a/userDetails/${key}`, {
                 Name: document.getElementById("name").value,
                 E_mail: document.getElementById("email").value,
                 Mob_No: document.getElementById("MobNo").value
